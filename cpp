@@ -14,7 +14,6 @@ void loadImage ();
 void saveImage ();
 void doBW ();
 void FlipImage();
-void Mirror();
 
 
 int main()
