@@ -24,15 +24,15 @@ int main()
     cout<<"2- Invert Filter"<<endl;
     cout<<"3-Merge Filter"<<endl;
     cout<<"4-Flip Image"<<endl;
-    cout<<"5- Darken and Lighten Image"<<endl;
-    cout<<"6-Rotate Image"<<endl;
+    cout<<"5-Rotate Image "<<endl;
+    cout<<"6-Darken and Lighten Image"<<endl;
     int a;
     cin>>a;
     if(a==1){
         doBW();
     }
     else if(a==2){
-
+         invertfilter();
     }
     else if(a==3){
 
@@ -41,7 +41,7 @@ int main()
         FlipImage();
     }
     else if(a==5){
-
+       Rotatefilter();
     }
     else if(a==6){
 
@@ -94,6 +94,23 @@ void doBW() {
     }
   }
 }
+
+//--------------------------//2
+void invertFilter() {
+
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (image[i][j] > 0 && image[i][j] < 255)//grey int opp
+                image[i][j] = 255 - image[i][j];
+            else if
+                    (image[i][j] = 0) { //black into white
+                image[i][j] = 255;
+            } else if (image[i][j] == 0) {
+                image[i][j] == 255;
+            }
+        }
+    }
+//-------------------------
 void FlipImage() {
     cout<<"Flip the image (h)orizontally or (v)ertically?\n";
     char ans;
@@ -119,6 +136,41 @@ void FlipImage() {
     }
 }
 
+//-------------------------//5 rotate image
+void RotateFilter(){
+    //rotate
+    int deg;cout<<"Rotate (90) or (180) or (270) ?";cin>>deg ;
+    if(deg==90){
+        for(int i=0;i<SIZE;i++){
+            for(int j=0;j<SIZE;j++){
+                imageR[i][j]=image[SIZE-1-j][i];
+}
+}
+        }
+    else if(deg==180){
+        for(int i=0;i<SIZE;i++){
+            for(int j=0;j<SIZE;j++){
+                imageR[i][j]=image[SIZE-1-i][SIZE-1-j];
+            }
+        }
+    }
+    else{
+        for(int i=0;i<SIZE;i++){
+            for(int j=0;j<SIZE;j++){
+                imageR[i][j]=image[j][SIZE-1-i];
+            }
+    }
+}
+    for(int i=0;i<SIZE;i++){
+       for(int j=0;j<SIZE;j++){
+           image[i][j]=imageR[i][j];
+
+        }
+    }
+}
+
+
+
 
 void mergeImages(){
     for (int i = 0; i < SIZE; i++)
@@ -132,6 +184,8 @@ void mergeImages(){
         }
     }
 }
+
+  
 
 void doSomethingForImage()
 {
