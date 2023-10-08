@@ -120,7 +120,38 @@ void FlipImage() {
 }
 
 
+void mergeImages(){
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            unsigned char gray1 = image[i][j];
+            unsigned char gray2 = secondImage[i][j];
+            unsigned char averageGray = (gray1 + gray2) / 2;
+            image[i][j] = averageGray;
+        }
+    }
+}
 
+void doSomethingForImage()
+{
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            // Darken the pixel by 50%
+            unsigned char pixel = image[i][j];
+            unsigned char darkenedPixel = pixel / 2;
+            image[i][j] = darkenedPixel;
+
+           // Lighten the pixel by 50%
+            unsigned char pixel = image[i][j];
+            unsigned char lightenedPixel = pixel + (255 - pixel ) / 2;
+            image[i][j] = lightenedPixel;
+
+        }
+    }
+}
 
 
 
