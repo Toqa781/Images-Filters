@@ -1,4 +1,6 @@
 // Toqa Abdalla Ahmed   id:20220093    email:abdallatoqa56@gmail.com
+//habiba alaa eldin mahfouz   id : 20220104   email:habibaalaa775@gmail.com
+//kermina nashaat shafek    id:  20220255     email:knashaat@gmail.com
 
 #include <iostream>
 #include <fstream>
@@ -8,12 +10,18 @@
 
 using namespace std;
 unsigned char image[SIZE][SIZE];
+unsigned char imageR[SIZE][SIZE];
 
 
 void loadImage ();
 void saveImage ();
 void doBW ();
 void FlipImage();
+void doSomehingForImage();
+void mergeimage();
+void rotateImage();
+void invertImage();
+void darkenandlightenimage();
 
 
 int main()
@@ -32,19 +40,19 @@ int main()
         doBW();
     }
     else if(a==2){
-         invertfilter();
+         invertImage();
     }
     else if(a==3){
-
+        mergeImage();
     }
     else if(a==4){
         FlipImage();
     }
     else if(a==5){
-       Rotatefilter();
+       RotateImage();
     }
     else if(a==6){
-
+        doSomethingForImage();
     }
     else if(a==0){
         return 0;
@@ -96,7 +104,7 @@ void doBW() {
 }
 
 //--------------------------//2
-void invertFilter() {
+void invertImage() {
 
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -137,7 +145,7 @@ void FlipImage() {
 }
 
 //-------------------------//5 rotate image
-void RotateFilter(){
+void RotateImage(){
     //rotate
     int deg;cout<<"Rotate (90) or (180) or (270) ?";cin>>deg ;
     if(deg==90){
