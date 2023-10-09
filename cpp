@@ -110,72 +110,69 @@ void invertImage() {
         for (int j = 0; j < SIZE; j++) {
             if (image[i][j] > 0 && image[i][j] < 255)//grey int opp
                 image[i][j] = 255 - image[i][j];
-            else if
-                    (image[i][j] = 0) { //black into white
+            else if(image[i][j] == 0) { //black into white
                 image[i][j] = 255;
-            } else if (image[i][j] == 0) {
-                image[i][j] == 255;
             }
         }
     }
 }
-    void FlipImage() {
-        cout<<"Flip the image (h)orizontally or (v)ertically?\n";
-        char ans;
-        cin>>ans;
-        unsigned char image2[SIZE][SIZE];
-        if(ans=='v') {
-            for (int i = 0; i < SIZE / 2; i++) {
-                for (int j = 0; j < SIZE; j++) {
-                    image2[i][j] = image[i][j];
-                    image[i][j] = image[SIZE - i - 1][j]; // Flip vertically
-                    image[SIZE - i - 1][j] = image2[i][j];
-                }
-            }
-        }
-        else{
-            for (int i = 0; i < SIZE ; i++) {
-                for (int j = 0; j < SIZE/2; j++) {
-                    image2[i][j] = image[i][j];
-                    image[i][j] = image[i][SIZE-j-1];
-                    image[i][SIZE-j-1] = image2[i][j];
-                }
+void FlipImage() {
+    cout<<"Flip the image (h)orizontally or (v)ertically?\n";
+    char ans;
+    cin>>ans;
+    unsigned char image2[SIZE][SIZE];
+    if(ans=='v') {
+        for (int i = 0; i < SIZE / 2; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                image2[i][j] = image[i][j];
+                image[i][j] = image[SIZE - i - 1][j]; // Flip vertically
+                image[SIZE - i - 1][j] = image2[i][j];
             }
         }
     }
+    else{
+        for (int i = 0; i < SIZE ; i++) {
+            for (int j = 0; j < SIZE/2; j++) {
+                image2[i][j] = image[i][j];
+                image[i][j] = image[i][SIZE-j-1];
+                image[i][SIZE-j-1] = image2[i][j];
+            }
+        }
+    }
+}
 
 //-------------------------//5 rotate image
-    void RotateImage(){
-        //rotate
-        int deg;cout<<"Rotate (90) or (180) or (270) ?";cin>>deg ;
-        if(deg==90){
-            for(int i=0;i<SIZE;i++){
-                for(int j=0;j<SIZE;j++){
-                    imageR[i][j]=image[SIZE-1-j][i];
-                }
-            }
-        }
-        else if(deg==180){
-            for(int i=0;i<SIZE;i++){
-                for(int j=0;j<SIZE;j++){
-                    imageR[i][j]=image[SIZE-1-i][SIZE-1-j];
-                }
-            }
-        }
-        else{
-            for(int i=0;i<SIZE;i++){
-                for(int j=0;j<SIZE;j++){
-                    imageR[i][j]=image[j][SIZE-1-i];
-                }
-            }
-        }
+void RotateImage(){
+    //rotate
+    int deg;cout<<"Rotate (90) or (180) or (270) ?";cin>>deg ;
+    if(deg==90){
         for(int i=0;i<SIZE;i++){
             for(int j=0;j<SIZE;j++){
-                image[i][j]=imageR[i][j];
-
+                imageR[i][j]=image[SIZE-1-j][i];
             }
         }
     }
+    else if(deg==180){
+        for(int i=0;i<SIZE;i++){
+            for(int j=0;j<SIZE;j++){
+                imageR[i][j]=image[SIZE-1-i][SIZE-1-j];
+            }
+        }
+    }
+    else{
+        for(int i=0;i<SIZE;i++){
+            for(int j=0;j<SIZE;j++){
+                imageR[i][j]=image[j][SIZE-1-i];
+            }
+        }
+    }
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            image[i][j]=imageR[i][j];
+
+        }
+    }
+}
 
 
 
@@ -191,56 +188,56 @@ void loadImage2 () {
     strcat (imageFileName, ".bmp");
     readGSBMP(imageFileName, secondImage);
 }
-    void mergeImages(){
-        loadImage2();
-        for (int i = 0; i < SIZE; i++)
+void mergeImages(){
+    loadImage2();
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
         {
-            for (int j = 0; j < SIZE; j++)
-            {
-                unsigned char gray1 = image[i][j];
-                unsigned char gray2 = secondImage[i][j];
-                unsigned char averageGray = (gray1 + gray2) / 2;
-                image[i][j] = averageGray;
-            }
+            unsigned char gray1 = image[i][j];
+            unsigned char gray2 = secondImage[i][j];
+            unsigned char averageGray = (gray1 + gray2) / 2;
+            image[i][j] = averageGray;
         }
     }
+}
 
 //-------------------------------------------------------------
 
-    void doSomethingForImage()
+void doSomethingForImage()
+{
+    char choose;
+    cout << "Do you want to lighten (L) or darken (D) the image? ";
+    cin >> choose;
+
+    unsigned char pixel;
+    unsigned char modifiedPixel;
+
+    for (int i = 0; i < SIZE; i++)
     {
-        char choose;
-        cout << "Do you want to lighten (L) or darken (D) the image? ";
-        cin >> choose;
-
-        unsigned char pixel;
-        unsigned char modifiedPixel;
-
-        for (int i = 0; i < SIZE; i++)
+        for (int j = 0; j < SIZE; j++)
         {
-            for (int j = 0; j < SIZE; j++)
+            pixel = image[i][j];
+
+            if (choose == 'L' || choose == 'l')
             {
-                pixel = image[i][j];
-
-                if (choose == 'L' || choose == 'l')
-                {
-                    // Lighten the pixel by 50%
-                    modifiedPixel = pixel + (255 - pixel) / 2;
-                }
-                else if (choose == 'D' || choose == 'd')
-                {
-                    // Darken the pixel by 50%
-                    modifiedPixel = pixel / 2;
-                }
-                else
-                {
-                    cout << "Invalid choice. Exiting without modification." << endl;
-                    return;
-                }
-
-                image[i][j] = modifiedPixel;
+                // Lighten the pixel by 50%
+                modifiedPixel = pixel + (255 - pixel) / 2;
             }
+            else if (choose == 'D' || choose == 'd')
+            {
+                // Darken the pixel by 50%
+                modifiedPixel = pixel / 2;
+            }
+            else
+            {
+                cout << "Invalid choice. Exiting without modification." << endl;
+                return;
+            }
+
+            image[i][j] = modifiedPixel;
         }
     }
+}
 
 
