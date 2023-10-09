@@ -179,7 +179,7 @@ void RotateImage(){
 
 
 
-
+//-------------------------------------------------
 void mergeImages(){
     for (int i = 0; i < SIZE; i++)
     {
@@ -193,27 +193,42 @@ void mergeImages(){
     }
 }
 
-  
+//-------------------------------------------------------------  
 
 void doSomethingForImage()
 {
+    char choose;
+    cout << "Do you want to lighten (L) or darken (D) the image? ";
+    cin >> choose;
+
+    unsigned char pixel;
+    unsigned char modifiedPixel;
+
     for (int i = 0; i < SIZE; i++)
     {
         for (int j = 0; j < SIZE; j++)
         {
-            // Darken the pixel by 50%
-            unsigned char pixel = image[i][j];
-            unsigned char darkenedPixel = pixel / 2;
-            image[i][j] = darkenedPixel;
+            pixel = image[i][j];
 
-           // Lighten the pixel by 50%
-            unsigned char pixel = image[i][j];
-            unsigned char lightenedPixel = pixel + (255 - pixel ) / 2;
-            image[i][j] = lightenedPixel;
+            if (choose == 'L' || choose == 'l')
+            {
+                // Lighten the pixel by 50%
+                modifiedPixel = pixel + (255 - pixel) / 2;
+            }
+            else if (choose == 'D' || choose == 'd')
+            {
+                // Darken the pixel by 50%
+                modifiedPixel = pixel / 2;
+            }
+            else
+            {
+                cout << "Invalid choice. Exiting without modification." << endl;
+                return;
+            }
 
+            image[i][j] = modifiedPixel;
         }
     }
 }
-
 
 
