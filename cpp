@@ -1,4 +1,4 @@
-// FCAI – OOP Programming – 2023 - Assignment 1 - Part 1
+// FCAI – OOP Programming – 2023 - Assignment 1
 // Program Name:Filters
 // Last Modification Date:10/10/2023
 // Toqa Abdalla Ahmed         id:20220093      email:abdallatoqa56@gmail.com
@@ -26,7 +26,7 @@ void mergeImages();
 void RotateImage();
 void invertImage();
 void loadImage2 ();
-
+void Edge();
 int main()
 {
     loadImage();
@@ -37,6 +37,7 @@ int main()
     cout<<"4-Flip Image"<<endl;
     cout<<"5-Rotate Image "<<endl;
     cout<<"6-Darken and Lighten Image"<<endl;
+    cout<<"7-Detect Image Edges"<<endl;
     int a;
     cin>>a;
     if(a==1){
@@ -57,6 +58,8 @@ int main()
     else if(a==6){
         doSomethingForImage();
     }
+    else if(a==7)
+        Edge();
     else if(a==0){
         return 0;
     }
@@ -239,6 +242,19 @@ void doSomethingForImage()
             }
 
             image[i][j] = modifiedPixel;
+        }
+    }
+}
+void Edge(){
+    for(int i=1;i<SIZE-1;i++){
+        for(int j=1; j<SIZE-1;j++){
+            if(abs(image[i][j]-image[i-1][j])>35 && abs(image[i][j]-image[i+1][j])>35){
+                image[i][j]=0;
+            }
+            else if(abs(image[i][j]-image[i][j-1])>35 && abs(image[i][j]-image[i][j+1])>35)
+                image[i][j]=0;
+            else
+                image[i][j]=255;
         }
     }
 }
