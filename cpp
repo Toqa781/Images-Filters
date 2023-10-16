@@ -16,7 +16,6 @@ unsigned char image[SIZE][SIZE];
 unsigned char imageR[SIZE][SIZE];
 unsigned char secondImage[SIZE][SIZE];
 unsigned char croppedImage[SIZE][SIZE];
-
 void loadImage();
 
 void saveImage();
@@ -39,6 +38,8 @@ void Edge();
 
 void crop();
 
+void MirrorImage();
+
 int main() {
     loadImage();
     cout << "Please select a filter to apply or 0 to exit" << endl;
@@ -49,6 +50,7 @@ int main() {
     cout << "5-Rotate Image " << endl;
     cout << "6-Darken and Lighten Image" << endl;
     cout << "7-Detect Image Edges" << endl;
+    cout<<"10- Mirror 1/2 image"<<endl;
     cout << "13-Crop Image" << endl;
     int a;
     cin >> a;
@@ -66,6 +68,8 @@ int main() {
         doSomethingForImage();
     } else if (a == 7)
         Edge();
+    else if(a==10)
+        MirrorImage();
     else if (a == 13)
         crop();
     else if (a == 0) {
@@ -277,4 +281,38 @@ void crop() {
                 }
             }
         }
+}
+
+void MirrorImage(){
+    char x;
+    cout<<"Mirror (l)eft , (r)ight ,(u)pper , (d)own side?"<<endl;
+    cin>>x;
+    if(x=='l'){
+        for(int i=0;i<SIZE;i++){
+            for(int j=(SIZE/2);j<SIZE;j++){
+                image[i][j]=image[i][SIZE-j-1];
+            }
+        }
+    }
+    else if(x=='r'){
+        for(int i=0;i<SIZE;i++){
+            for(int j=0;j<SIZE/2;j++){
+                image[i][j]=image[i][SIZE-j-1];
+            }
+        }
+    }
+    else if(x=='u'){
+        for(int i=SIZE/2;i<SIZE;i++){
+            for(int j=0;j<SIZE;j++){
+                image[i][j]=image[SIZE-i-1][j];
+            }
+        }
+    }
+    else if(x=='d'){
+        for(int i=0;i<SIZE/2;i++){
+            for(int j=0;j<SIZE;j++){
+                image[i][j]=image[SIZE-i-1][j];
+            }
+        }
+    }
 }
