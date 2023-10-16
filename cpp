@@ -36,6 +36,8 @@ void loadImage2();
 
 void Edge();
 
+void blurImage();
+
 void crop();
 
 void MirrorImage();
@@ -51,6 +53,7 @@ int main() {
     cout << "6-Darken and Lighten Image" << endl;
     cout << "7-Detect Image Edges" << endl;
     cout<<"10- Mirror 1/2 image"<<endl;
+    cout<<"12- Blur image"<<endl;
     cout << "13-Crop Image" << endl;
     int a;
     cin >> a;
@@ -70,6 +73,8 @@ int main() {
         Edge();
     else if(a==10)
         MirrorImage();
+    else if(a==12)
+        blurImage();
     else if (a == 13)
         crop();
     else if (a == 0) {
@@ -249,6 +254,8 @@ void doSomethingForImage() {
     }
 }
 
+//------------------------------------------------------------
+
 void Edge() {
     for (int i = 1; i < SIZE - 1; i++) {
         for (int j = 1; j < SIZE - 1; j++) {
@@ -261,6 +268,45 @@ void Edge() {
         }
     }
 }
+
+//-------------------------------------------------------------
+
+void blurImage()
+{
+    unsigned char newImage[ORIGINAL_SIZE][ORIGINAL_SIZE];
+
+    for (int i = 0; i < ORIGINAL_SIZE; i++)
+    {
+        for (int j = 0; j < ORIGINAL_SIZE; j++)
+        {
+            // Calculate average value of surrounding pixels
+            int sum = 0;
+            int count = 0;
+
+            // Increase the size of the neighborhood to achieve stronger blur
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    int row = i + x;
+                    int col = j + y;
+
+                    if (row >= 0 && row < ORIGINAL_SIZE && col >= 0 && col < ORIGINAL_SIZE)
+                    {
+                        sum += originalImage[row][col];
+                        count++;
+                    }
+                }
+            }
+
+            newImage[i][j] = static_cast<unsigned char>(sum / count);
+        }
+    }
+
+    memcpy(originalImage, newImage, ORIGINAL_SIZE * ORIGINAL_SIZE * sizeof(unsigned char));
+}
+
+//---------------------------------------------------------
 
 void crop() {
     int x, y, l, w;
