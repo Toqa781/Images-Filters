@@ -69,15 +69,15 @@ int main() {
         RotateImage();
     } else if (a == 6) {
         doSomethingForImage();
-    } else if (a == 7)
+    } else if (a == 7){
         Edge();
-    else if(a==10)
+    }else if(a==10){
         MirrorImage();
-    else if(a==12)
+    }else if(a==12){
         blurImage();
-    else if (a == 13)
+    }else if (a == 13){
         crop();
-    else if (a == 0) {
+    }else if (a == 0) {
         return 0;
     }
 
