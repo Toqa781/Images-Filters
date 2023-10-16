@@ -15,61 +15,70 @@ using namespace std;
 unsigned char image[SIZE][SIZE];
 unsigned char imageR[SIZE][SIZE];
 unsigned char secondImage[SIZE][SIZE];
+unsigned char croppedImage[SIZE][SIZE];
 
+void loadImage();
 
-void loadImage ();
-void saveImage ();
-void doBW ();
+void saveImage();
+
+void doBW();
+
 void FlipImage();
+
 void doSomethingForImage();
+
 void mergeImages();
+
 void RotateImage();
+
 void invertImage();
-void loadImage2 ();
+
+void loadImage2();
+
 void Edge();
-int main()
-{
+
+void crop();
+
+int main() {
     loadImage();
-    cout<<"Please select a filter to apply or 0 to exit"<<endl;
-    cout<<"1- Black & White Filter"<<endl;
-    cout<<"2- Invert Filter"<<endl;
-    cout<<"3-Merge Filter"<<endl;
-    cout<<"4-Flip Image"<<endl;
-    cout<<"5-Rotate Image "<<endl;
-    cout<<"6-Darken and Lighten Image"<<endl;
-    cout<<"7-Detect Image Edges"<<endl;
+    cout << "Please select a filter to apply or 0 to exit" << endl;
+    cout << "1- Black & White Filter" << endl;
+    cout << "2- Invert Filter" << endl;
+    cout << "3-Merge Filter" << endl;
+    cout << "4-Flip Image" << endl;
+    cout << "5-Rotate Image " << endl;
+    cout << "6-Darken and Lighten Image" << endl;
+    cout << "7-Detect Image Edges" << endl;
+    cout << "13-Crop Image" << endl;
     int a;
-    cin>>a;
-    if(a==1){
+    cin >> a;
+    if (a == 1) {
         doBW();
-    }
-    else if(a==2){
+    } else if (a == 2) {
         invertImage();
-    }
-    else if(a==3){
+    } else if (a == 3) {
         mergeImages();
-    }
-    else if(a==4){
+    } else if (a == 4) {
         FlipImage();
-    }
-    else if(a==5){
+    } else if (a == 5) {
         RotateImage();
-    }
-    else if(a==6){
+    } else if (a == 6) {
         doSomethingForImage();
-    }
-    else if(a==7)
+    } else if (a == 7)
         Edge();
-    else if(a==0){
+    else if (a == 13)
+        crop();
+    else if (a == 0) {
         return 0;
     }
+
     saveImage();
 
     return 0;
 }
 
 //_________________________________________
-void loadImage () {
+void loadImage() {
     char imageFileName[100];
 
     // Get gray scale image file name
@@ -77,12 +86,12 @@ void loadImage () {
     cin >> imageFileName;
 
     // Add to it .bmp extension and load image
-    strcat (imageFileName, ".bmp");
+    strcat(imageFileName, ".bmp");
     readGSBMP(imageFileName, image);
 }
 
 //_________________________________________
-void saveImage () {
+void saveImage() {
     char imageFileName[100];
 
     // Get gray scale image target file name
@@ -90,14 +99,14 @@ void saveImage () {
     cin >> imageFileName;
 
     // Add to it .bmp extension and load image
-    strcat (imageFileName, ".bmp");
+    strcat(imageFileName, ".bmp");
     writeGSBMP(imageFileName, image);
 }
 
 //_________________________________________
 void doBW() {
     for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j< SIZE; j++) {
+        for (int j = 0; j < SIZE; j++) {
 
 
             if (image[i][j] > 127)
@@ -116,18 +125,19 @@ void invertImage() {
         for (int j = 0; j < SIZE; j++) {
             if (image[i][j] > 0 && image[i][j] < 255)//grey int opp
                 image[i][j] = 255 - image[i][j];
-            else if(image[i][j] == 0) { //black into white
+            else if (image[i][j] == 0) { //black into white
                 image[i][j] = 255;
             }
         }
     }
 }
+
 void FlipImage() {
-    cout<<"Flip the image (h)orizontally or (v)ertically?\n";
+    cout << "Flip the image (h)orizontally or (v)ertically?\n";
     char ans;
-    cin>>ans;
+    cin >> ans;
     unsigned char image2[SIZE][SIZE];
-    if(ans=='v') {
+    if (ans == 'v') {
         for (int i = 0; i < SIZE / 2; i++) {
             for (int j = 0; j < SIZE; j++) {
                 image2[i][j] = image[i][j];
@@ -135,55 +145,53 @@ void FlipImage() {
                 image[SIZE - i - 1][j] = image2[i][j];
             }
         }
-    }
-    else{
-        for (int i = 0; i < SIZE ; i++) {
-            for (int j = 0; j < SIZE/2; j++) {
+    } else {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE / 2; j++) {
                 image2[i][j] = image[i][j];
-                image[i][j] = image[i][SIZE-j-1];
-                image[i][SIZE-j-1] = image2[i][j];
+                image[i][j] = image[i][SIZE - j - 1];
+                image[i][SIZE - j - 1] = image2[i][j];
             }
         }
     }
 }
 
 //-------------------------//5 rotate image
-void RotateImage(){
+void RotateImage() {
     //rotate
-    int deg;cout<<"Rotate (90) or (180) or (270) ?";cin>>deg ;
-    if(deg==90){
-        for(int i=0;i<SIZE;i++){
-            for(int j=0;j<SIZE;j++){
-                imageR[i][j]=image[SIZE-1-j][i];
+    int deg;
+    cout << "Rotate (90) or (180) or (270) ?";
+    cin >> deg;
+    if (deg == 90) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                imageR[i][j] = image[SIZE - 1 - j][i];
+            }
+        }
+    } else if (deg == 180) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                imageR[i][j] = image[SIZE - 1 - i][SIZE - 1 - j];
+            }
+        }
+    } else {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                imageR[i][j] = image[j][SIZE - 1 - i];
             }
         }
     }
-    else if(deg==180){
-        for(int i=0;i<SIZE;i++){
-            for(int j=0;j<SIZE;j++){
-                imageR[i][j]=image[SIZE-1-i][SIZE-1-j];
-            }
-        }
-    }
-    else{
-        for(int i=0;i<SIZE;i++){
-            for(int j=0;j<SIZE;j++){
-                imageR[i][j]=image[j][SIZE-1-i];
-            }
-        }
-    }
-    for(int i=0;i<SIZE;i++){
-        for(int j=0;j<SIZE;j++){
-            image[i][j]=imageR[i][j];
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image[i][j] = imageR[i][j];
 
         }
     }
 }
 
 
-
 //-------------------------------------------------
-void loadImage2 () {
+void loadImage2() {
     char imageFileName[100];
 
     // Get gray scale image file name
@@ -191,15 +199,14 @@ void loadImage2 () {
     cin >> imageFileName;
 
     // Add to it .bmp extension and load image
-    strcat (imageFileName, ".bmp");
+    strcat(imageFileName, ".bmp");
     readGSBMP(imageFileName, secondImage);
 }
-void mergeImages(){
+
+void mergeImages() {
     loadImage2();
-    for (int i = 0; i < SIZE; i++)
-    {
-        for (int j = 0; j < SIZE; j++)
-        {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
             unsigned char gray1 = image[i][j];
             unsigned char gray2 = secondImage[i][j];
             unsigned char averageGray = (gray1 + gray2) / 2;
@@ -210,8 +217,7 @@ void mergeImages(){
 
 //-------------------------------------------------------------
 
-void doSomethingForImage()
-{
+void doSomethingForImage() {
     char choose;
     cout << "Do you want to lighten (L) or darken (D) the image? ";
     cin >> choose;
@@ -219,24 +225,17 @@ void doSomethingForImage()
     unsigned char pixel;
     unsigned char modifiedPixel;
 
-    for (int i = 0; i < SIZE; i++)
-    {
-        for (int j = 0; j < SIZE; j++)
-        {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
             pixel = image[i][j];
 
-            if (choose == 'L' || choose == 'l')
-            {
+            if (choose == 'L' || choose == 'l') {
                 // Lighten the pixel by 50%
                 modifiedPixel = pixel + (255 - pixel) / 2;
-            }
-            else if (choose == 'D' || choose == 'd')
-            {
+            } else if (choose == 'D' || choose == 'd') {
                 // Darken the pixel by 50%
                 modifiedPixel = pixel / 2;
-            }
-            else
-            {
+            } else {
                 cout << "Invalid choice. Exiting without modification." << endl;
                 return;
             }
@@ -245,18 +244,37 @@ void doSomethingForImage()
         }
     }
 }
-void Edge(){
-    for(int i=1;i<SIZE-1;i++){
-        for(int j=1; j<SIZE-1;j++){
-            if(abs(image[i][j]-image[i-1][j])>35 && abs(image[i][j]-image[i+1][j])>35){
-                image[i][j]=0;
-            }
-            else if(abs(image[i][j]-image[i][j-1])>35 && abs(image[i][j]-image[i][j+1])>35)
-                image[i][j]=0;
+
+void Edge() {
+    for (int i = 1; i < SIZE - 1; i++) {
+        for (int j = 1; j < SIZE - 1; j++) {
+            if (abs(image[i][j] - image[i - 1][j]) > 35 && abs(image[i][j] - image[i + 1][j]) > 35) {
+                image[i][j] = 0;
+            } else if (abs(image[i][j] - image[i][j - 1]) > 35 && abs(image[i][j] - image[i][j + 1]) > 35)
+                image[i][j] = 0;
             else
-                image[i][j]=255;
+                image[i][j] = 255;
         }
     }
 }
 
-
+void crop() {
+    int x, y, l, w;
+    cout << "Please enter x,y,l,w" << endl;
+    cin >> x >> y >> l >> w;
+        for (int i = y; i < y + w; i++) {
+            for (int j = x; j < x + l; j++) {
+                croppedImage[i][j] = image[i][j];
+            }
+        }
+        for(int i=0;i<SIZE;i++){
+            for(int j=0;j<SIZE;j++){
+                image[i][j]=255;
+                for (int i = y; i < y + w; i++) {
+                    for (int j = x; j < x + l; j++) {
+                        image[i][j] = croppedImage[i][j];
+                    }
+                }
+            }
+        }
+}
