@@ -36,6 +36,8 @@ void loadImage2();
 
 void Edge();
 
+void shrink();
+
 void blurImage();
 
 void crop();
@@ -52,6 +54,7 @@ int main() {
     cout << "5-Rotate Image " << endl;
     cout << "6-Darken and Lighten Image" << endl;
     cout << "7-Detect Image Edges" << endl;
+    cout<< "9-shrink image" << endl;
     cout<<"10- Mirror 1/2 image"<<endl;
     cout<<"12- Blur image"<<endl;
     cout << "13-Crop Image" << endl;
@@ -71,6 +74,8 @@ int main() {
         doSomethingForImage();
     } else if (a == 7){
         Edge();
+    }else if (a==9){
+        shrink();
     }else if(a==10){
         MirrorImage();
     }else if(a==12){
@@ -270,6 +275,61 @@ void Edge() {
 }
 
 //-------------------------------------------------------------
+void shrink(){
+    cout<<"Shrink to (1/2), (1/3) or (1/4)?: ";
+    string choice; cin>>choice;
+    if (choice == "1/2") {
+        for (int i = 0; i < SIZE/2; i++) {
+            for (int j = 0; j < SIZE/2; j++) {
+                image[i][j] = (image[i*2][j*2]);
+            }
+        }
+        for(int i=SIZE/2 ; i< SIZE ; i++ ){
+            for(int j=0 ; j<SIZE ;j++){
+                image[i][j] = 255;
+            }
+        }
+        for(int i=0 ; i< SIZE/2 ; i++ ){
+            for(int j=SIZE/2 ; j<SIZE ;j++){
+                image[i][j] = 255;
+            }
+        }
+    }else if(choice == "1/3"){
+        for (int i = 0; i < SIZE/3; i++) {
+            for (int j = 0; j < SIZE/3; j++) {
+                image[i][j] = (image[i*3][j*3]);
+            }
+        }
+        for(int i=SIZE/3 ; i< SIZE ; i++ ){
+            for(int j=0 ; j<SIZE ;j++){
+                image[i][j] = 255;
+            }
+        }
+        for(int i=0 ; i< SIZE/3 ; i++ ){
+            for(int j=SIZE/3 ; j<SIZE ;j++){
+                image[i][j] = 255;
+            }
+        }
+    }else{
+        for (int i = 0; i < SIZE/4; i++) {
+            for (int j = 0; j < SIZE/4; j++) {
+                image[i][j] = (image[i*4][j*4]);
+            }
+        }
+        for(int i=SIZE/4 ; i< SIZE ; i++ ){
+            for(int j=0 ; j<SIZE ;j++){
+                image[i][j] = 255;
+            }
+        }
+        for(int i=0 ; i< SIZE/4 ; i++ ){
+            for(int j=SIZE/4 ; j<SIZE ;j++){
+                image[i][j] = 255;
+            }
+        }
+    }
+}
+
+//----------------------------------------------------------------
 
 void blurImage()
 {
