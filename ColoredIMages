@@ -22,6 +22,7 @@ void doBW();
 
 void FlipImage();
 void Edge();
+vooid shrink();
 void MirrorImage();
 void crop();
 
@@ -36,6 +37,7 @@ int main() {
 //    cout << "5-Rotate Image " << endl;
 //    cout << "6-Darken and Lighten Image" << endl;
     cout << "7-Detect Image Edges" << endl;
+    cout << "9-shrink Image" << endl;
     cout << "10- Mirror 1/2 image" << endl;
 //    cout<<"12-Blur image"<<endl;
     cout << "13-Crop Image" << endl;
@@ -49,6 +51,8 @@ int main() {
     }
     else if(a==7)
         Edge();
+    else if(a==9)
+        shrink();
     else if(a==10)
         MirrorImage();
     else if(a==13){
@@ -86,7 +90,7 @@ void saveImage() {
     writeRGBBMP(imageFileName, RGB_image);
 }
 
-//_________________________________________
+//_________________________________________1-black and white
 void doBW() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -103,7 +107,7 @@ void doBW() {
         }
     }
 }
-
+//-------------------------------------------------------------------4-flip Image
 void FlipImage() {
     cout << "Flip the image (h)orizontally or (v)ertically?\n";
     char ans;
@@ -133,7 +137,7 @@ void FlipImage() {
 
     }
 }
-
+//-----------------------------------------------------7- detect edges
 void Edge() {
     for(int k=0;k<3;k++) {
         for (int i = 1; i < SIZE - 1; i++) {
@@ -148,6 +152,79 @@ void Edge() {
         }
     }
 }
+//-------------------------------------9-shrinkImage
+void shrink(){
+    cout<<"Shrink to (1/2), (1/3) or (1/4)?: ";
+    string choice; cin>>choice;
+    if (choice == "1/2") {
+        for (int i = 0; i < SIZE/2; i++) {
+            for (int j = 0; j < SIZE/2; j++) {
+                RGB_image[i][j][0] = (RGB_image[i*2][j*2][0]);
+                RGB_image[i][j][1] = (RGB_image[i*2][j*2][1]);
+                RGB_image[i][j][2] = (RGB_image[i*2][j*2][2]);
+            }
+        }
+        for(int i=SIZE/2 ; i< SIZE ; i++ ){
+            for(int j=0 ; j<SIZE ;j++){
+                RGB_image[i][j][0] = 255;
+                RGB_image[i][j][1] = 255;
+                RGB_image[i][j][2] = 255;
+            }
+        }
+        for(int i=0 ; i< SIZE/2 ; i++ ){
+            for(int j=SIZE/2 ; j<SIZE ;j++){
+                RGB_image[i][j][0] = 255;
+                RGB_image[i][j][1] = 255;
+                RGB_image[i][j][2] = 255;
+            }
+        }
+    }else if(choice == "1/3"){
+        for (int i = 0; i < SIZE/3; i++) {
+            for (int j = 0; j < SIZE/3; j++) {
+                RGB_image[i][j][0] = (RGB_image[i*3][j*3][0]);
+                RGB_image[i][j][1] = (RGB_image[i*3][j*3][1]);
+                RGB_image[i][j][2] = (RGB_image[i*3][j*3][2]);
+            }
+        }
+        for(int i=SIZE/3 ; i< SIZE ; i++ ){
+            for(int j=0 ; j<SIZE ;j++){
+                RGB_image[i][j][0] = 255;
+                RGB_image[i][j][1] = 255;
+                RGB_image[i][j][2] = 255;
+            }
+        }
+        for(int i=0 ; i< SIZE/3 ; i++ ){
+            for(int j=SIZE/3 ; j<SIZE ;j++){
+                RGB_image[i][j][0] = 255;
+                RGB_image[i][j][1] = 255;
+                RGB_image[i][j][2] = 255;
+            }
+        }
+    }else{
+        for (int i = 0; i < SIZE/4; i++) {
+            for (int j = 0; j < SIZE/4; j++) {
+                RGB_image[i][j][0] = (RGB_image[i*4][j*4][0]);
+                RGB_image[i][j][1] = (RGB_image[i*4][j*4][1]);
+                RGB_image[i][j][2] = (RGB_image[i*4][j*4][2]);
+            }
+        }
+        for(int i=SIZE/4 ; i< SIZE ; i++ ){
+            for(int j=0 ; j<SIZE ;j++){
+                RGB_image[i][j][0] = 255;
+                RGB_image[i][j][1] = 255;
+                RGB_image[i][j][2] = 255;
+            }
+        }
+        for(int i=0 ; i< SIZE/4 ; i++ ){
+            for(int j=SIZE/4 ; j<SIZE ;j++){
+                RGB_image[i][j][0] = 255;
+                RGB_image[i][j][1] = 255;
+                RGB_image[i][j][2] = 255;
+            }
+        }
+    }
+}
+//-------------------------------------------10- mirror Image
 void MirrorImage(){
     char x;
     cout<<"Mirror (l)eft , (r)ight ,(u)pper , (d)own side?"<<endl;
@@ -189,6 +266,7 @@ void MirrorImage(){
         }
     }
 }
+//-----------------------------------------------------13-crop Image
 void crop() {
     int x, y, l, w;
     unsigned char croppedImage[SIZE][SIZE][3];
