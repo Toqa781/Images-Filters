@@ -273,11 +273,11 @@ void Edge() {
 
 void blurImage()
 {
-    unsigned char newImage[ORIGINAL_SIZE][ORIGINAL_SIZE];
+    unsigned char newImage[SIZE][SIZE];
 
-    for (int i = 0; i < ORIGINAL_SIZE; i++)
+    for (int i = 0; i <SIZE; i++)
     {
-        for (int j = 0; j < ORIGINAL_SIZE; j++)
+        for (int j = 0; j <SIZE; j++)
         {
             // Calculate average value of surrounding pixels
             int sum = 0;
@@ -291,9 +291,9 @@ void blurImage()
                     int row = i + x;
                     int col = j + y;
 
-                    if (row >= 0 && row < ORIGINAL_SIZE && col >= 0 && col < ORIGINAL_SIZE)
+                    if (row >= 0 && row < SIZE && col >= 0 && col < SIZE)
                     {
-                        sum += originalImage[row][col];
+                        sum += image[row][col];
                         count++;
                     }
                 }
@@ -303,7 +303,7 @@ void blurImage()
         }
     }
 
-    memcpy(originalImage, newImage, ORIGINAL_SIZE * ORIGINAL_SIZE * sizeof(unsigned char));
+    memcpy(image, newImage,SIZE *SIZE * sizeof(unsigned char));
 }
 
 //---------------------------------------------------------
