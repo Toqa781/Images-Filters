@@ -21,6 +21,7 @@ void saveImage();
 void doBW();
 
 void FlipImage();
+void doSomethingForImage();
 void Edge();
 vooid shrink();
 void MirrorImage();
@@ -35,7 +36,7 @@ int main() {
 //    cout << "3-Merge Filter" << endl;
     cout << "4-Flip Image" << endl;
 //    cout << "5-Rotate Image " << endl;
-//    cout << "6-Darken and Lighten Image" << endl;
+    cout << "6-Darken and Lighten Image" << endl;
     cout << "7-Detect Image Edges" << endl;
     cout << "9-shrink Image" << endl;
     cout << "10- Mirror 1/2 image" << endl;
@@ -49,6 +50,8 @@ int main() {
     else if(a==4){
         FlipImage();
     }
+    else if(a==6)
+        doSomethingForImage();
     else if(a==7)
         Edge();
     else if(a==9)
@@ -135,6 +138,45 @@ void FlipImage() {
             }
         }
 
+    }
+}
+//-------------------------------------------------------6-lighten abd darken
+void doSomethingForImage()
+{
+    char choose;
+    cout << "Do you want to lighten (L) or darken (D) the image? ";
+    cin >> choose;
+
+    unsigned char pixel;
+    unsigned char modifiedPixel;
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                pixel = RGB_image[i][j][k];
+
+                if (choose == 'L' || choose == 'l')
+                {
+                    // Lighten the pixel by 50%
+                    modifiedPixel = pixel + (255 - pixel) / 2;
+                }
+                else if (choose == 'D' || choose == 'd')
+                {
+                    // Darken the pixel by 50%
+                    modifiedPixel = pixel / 2;
+                }
+                else
+                {
+                    cout << "Invalid choice. Exiting without modification." << endl;
+                    return;
+                }
+
+                RGB_image[i][j][k] = modifiedPixel;
+            }
+        }
     }
 }
 //-----------------------------------------------------7- detect edges
