@@ -15,11 +15,8 @@ using namespace std;
 unsigned char RGB_image[SIZE][SIZE][3];
 
 void loadImage();
-
 void saveImage();
-
 void doBW();
-
 void FlipImage();
 void doSomethingForImage();
 void Edge();
