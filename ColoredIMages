@@ -25,6 +25,7 @@ void doSomethingForImage();
 void Edge();
 vooid shrink();
 void MirrorImage();
+void blurImage();
 void crop();
 
 
@@ -40,7 +41,7 @@ int main() {
     cout << "7-Detect Image Edges" << endl;
     cout << "9-shrink Image" << endl;
     cout << "10- Mirror 1/2 image" << endl;
-//    cout<<"12-Blur image"<<endl;
+    cout<<"12-Blur image"<<endl;
     cout << "13-Crop Image" << endl;
     int a;
     cin >> a;
@@ -58,9 +59,12 @@ int main() {
         shrink();
     else if(a==10)
         MirrorImage();
+    else if(a==12)
+        blurImage();
     else if(a==13){
         crop();
     }
+    
 
     saveImage();
 
@@ -307,6 +311,44 @@ void MirrorImage(){
             }
         }
     }
+}
+//-----------------------------------------------------12-blur image
+void blurImage()
+{
+    unsigned char newImage[SIZE][SIZE][3];
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                // Calculate average value of surrounding pixels
+                int sum = 0;
+                int count = 0;
+
+                // Increase the size of the neighborhood to achieve stronger blur
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        int row = i + x;
+                        int col = j + y;
+
+                        if (row >= 0 && row < SIZE && col >= 0 && col < SIZE)
+                        {
+                            sum += RGB_image[row][col][k];
+                            count++;
+                        }
+                    }
+                }
+
+                newImage[i][j][k] = static_cast<unsigned char>(sum / count);
+            }
+        }
+    }
+
+    memcpy(RGB_image, newImage, SIZE * SIZE * 3 * sizeof(unsigned char));
 }
 //-----------------------------------------------------13-crop Image
 void crop() {
