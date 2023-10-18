@@ -17,6 +17,7 @@ unsigned char RGB_image[SIZE][SIZE][3];
 void loadImage();
 void saveImage();
 void doBW();
+void mergeImages();
 void FlipImage();
 void doSomethingForImage();
 void Edge();
@@ -31,7 +32,7 @@ int main() {
     cout << "Please select a filter to apply or 0 to exit" << endl;
     cout << "1- Black & White Filter" << endl;
 //    cout << "2- Invert Filter" << endl;
-//    cout << "3-Merge Filter" << endl;
+    cout << "3-Merge Filter" << endl;
     cout << "4-Flip Image" << endl;
 //    cout << "5-Rotate Image " << endl;
     cout << "6-Darken and Lighten Image" << endl;
@@ -45,6 +46,8 @@ int main() {
     if (a == 1) {
         doBW();
     }
+    else if(a==3)
+        maergeImages();
     else if(a==4){
         FlipImage();
     }
@@ -108,6 +111,30 @@ void doBW() {
                 RGB_image[i][j][2] = 0;
             }
 
+        }
+    }
+}
+//-------------------------------------------------------------------3-merhe Image
+void loadImage2()
+{
+   // Get second image file name
+     cout << "Enter the second image file name: ";
+     cin >> imageFileName2;
+    strcat(imageFileName2, ".bmp");
+   readRGBBMP(imageFileName2, RGB_image2);
+}
+
+
+void mergeImages()
+{
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                merged_image[i][j][k] = (RGB_image1[i][j][k] + RGB_image2[i][j][k]) / 2;
+            }
         }
     }
 }
