@@ -49,7 +49,7 @@ void crop();
 
 void MirrorImage();
 
-void enlargeImage();
+void enlarge();
 
 void skewHorizontally();
 
@@ -91,7 +91,7 @@ int main() {
     } else if (a == 7) {
         Edge();
     } else if (a == 8) {
-        enlargeImage();
+        enlarge();
     } else if (a == 9) {
         shrink();
     } else if (a == 10) {
@@ -492,53 +492,36 @@ void shrink() {
 
 //----------------------------------------------------------------
 // --------------enlarge 8
-void enlargeImage() {
-    unsigned char newimage2[SIZE][SIZE];
-
-    char imageFileName[100];
-    cout << "Enter the target image file name: ";
-    cin >> imageFileName;
-
-    for (int i = 0; i <
-                    SIZE; i += 2) {//increment by 2 bec i divide it into 4 quarters so its even number enlarge it into 4 quarters
-
-        for (int j = 0; j < SIZE; j += 2) {// ,,   ,,    ,,       ,,      ,,       ,,
-            int q;//quarter
-            cout << "which quarter do you want to enlarge?";
-
-            cin >> q;
-            if (q == 1) { //first quarter from 0 to 128
-                image[i][j] = newimage2[i / 2][j / 2];
-                image[i + 1][j] = newimage2[i / 2][j / 2];
-                image[i][j + 1] = newimage2[i / 2][j / 2];
-                image[i + 1][j + 1] = newimage2[i / 2][j / 2];
-            } else if (q == 2) {//2nd quarter i=0 to 128 &j=0 to 128
-                image[i][j] = newimage2[i / 2][j + SIZE / 2];  // (moves in direction of j so will add size
-                image[i + 1][j] = newimage2[i / 2][j + SIZE / 2];
-                image[i][j + 1] = newimage2[i / 2][j + SIZE / 2];
-                image[i + 1][j + 1] = newimage2[i / 2][j + SIZE / 2];
-            } else if (q == 3) {//3rd quarter i=128 to 256 &j=0 to 128
-                image[i][j] = newimage2[i + SIZE / 2][j / 2];  // (moves in direction of i so will add size
-                image[i + 1][j] = newimage2[i + SIZE / 2][j / 2];
-                image[i][j + 1] = newimage2[i + SIZE / 2][j / 2];
-                image[i + 1][j + 1] = newimage2[i + SIZE / 2][j / 2];
-            } else if (q == 4) {//3rd quarter i=128 to 256 &j=128 to 256
-                image[i][j] = newimage2[i + SIZE / 2][j + SIZE /
-                                                          2];  // (moves in direction of i and j so will add size to both
-                image[i + 1][j] = newimage2[i + SIZE / 2][j + SIZE / 2];
-                image[i][j + 1] = newimage2[i + SIZE / 2][j + SIZE / 2];
-                image[i + 1][j + 1] = newimage2[i + SIZE / 2][j + SIZE / 2];
+void enlarge(){
+    int quarter;
+    cout<<"please enter the quarter u want to enlarge:";
+    cin>>quarter;
+    for (int i = 0; i < SIZE; i+=2){
+        for (int j =0; j<SIZE;j+=2){
+            if (quarter==1){
+                image[i][j]=newimage[i/2][j/2];
+                image[i][j+1]=newimage[i/2][j/2];
+                image[i+1][j]=newimage[i/2][j/2];
+                image[i+1][j+1]=newimage[i/2][j/2];
+            }else if (quarter==2){
+                image[i][j]=newimage[i/2][(j+SIZE)/2];
+                image[i][j+1]=newimage[i/2][(j+SIZE)/2];
+                image[i+1][j]=newimage[i/2][(j+SIZE)/2];
+                image[i+1][j+1]=newimage[i/2][(j+SIZE)/2];
+            }else if (quarter==3){
+                image[i][j]=newimage[(i+SIZE)/2][j/2];
+                image[i][j+1]=newimage[(i+SIZE)/2][j/2];
+                image[i+1][j]=newimage[(i+SIZE)/2][j/2];
+                image[i+1][j+1]=newimage[(i+SIZE)/2][j/2];
+            }else if (quarter==4){
+                image[i][j]=newimage[(i+SIZE)/2][(j+SIZE)/2];
+                image[i][j+1]=newimage[(i+SIZE)/2][(j+SIZE)/2];
+                image[i+1][j]=newimage[(i+SIZE)/2][(j+SIZE)/2];
+                image[i+1][j+1]=newimage[(i+SIZE)/2][(j+SIZE)/2];
             }
-
-
-
-
-
-
-
-// do somethi
         }
     }
+
 }
 
 
