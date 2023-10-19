@@ -307,15 +307,19 @@ int choice;
         break;
 //-----------------------------------------------------7- detect edges
 void Edge() {
+
     for(int k=0;k<3;k++) {
         for (int i = 1; i < SIZE - 1; i++) {
             for (int j = 1; j < SIZE - 1; j++) {
-                if (abs(RGB_image[i][j][k] - RGB_image[i - 1][j][k]) > 35 && abs(RGB_image[i][j][k] - RGB_image[i + 1][j][k]) > 35) {
+                if (abs(RGB_image[i][j][k] - RGB_image[i - 1][j][k]) > 30 && abs(RGB_image[i][j][k] - RGB_image[i + 1][j][k]) > 30) {
                     RGB_image[i][j][k] = 0;
-                } else if (abs(RGB_image[i][j][k] - RGB_image[i][j - 1][k]) > 35 && abs(RGB_image[i][j][k] - RGB_image[i][j + 1][k]) > 35)
+                } else if (abs(RGB_image[i][j][k] - RGB_image[i][j - 1][k]) > 30 && abs(RGB_image[i][j][k] - RGB_image[i][j + 1][k]) > 30)
                     RGB_image[i][j][k] = 0;
-                else
-                    RGB_image[i][j][k] = 255;
+                else {
+                    RGB_image[i][j][0] = 255;
+                    RGB_image[i][j][1] = 255;
+                    RGB_image[i][j][2] = 255;
+                }
             }
         }
     }
