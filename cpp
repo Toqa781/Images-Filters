@@ -498,26 +498,30 @@ void enlarge(){
     cin>>quarter;
     for (int i = 0; i < SIZE; i+=2){
         for (int j =0; j<SIZE;j+=2){
+        
             if (quarter==1){
-                image[i][j]=newimage[i/2][j/2];
-                image[i][j+1]=newimage[i/2][j/2];
-                image[i+1][j]=newimage[i/2][j/2];
-                image[i+1][j+1]=newimage[i/2][j/2];
+                newimage[i][j]=image[i/2][j/2];
+                newimage[i][j+1]=image[i/2][j/2];
+                newimage[i+1][j]=image[i/2][j/2];
+                newimage[i+1][j+1]=image[i/2][j/2];
             }else if (quarter==2){
-                image[i][j]=newimage[i/2][(j+SIZE)/2];
-                image[i][j+1]=newimage[i/2][(j+SIZE)/2];
-                image[i+1][j]=newimage[i/2][(j+SIZE)/2];
-                image[i+1][j+1]=newimage[i/2][(j+SIZE)/2];
+                newimage[i][j]=image[i/2][(j+SIZE)/2];
+                newimage[i][j+1]=image[i/2][(j+SIZE)/2];
+                newimage[i+1][j]=image[i/2][(j+SIZE)/2];
+                newimage[i+1][j+1]=image[i/2][(j+SIZE)/2];
             }else if (quarter==3){
-                image[i][j]=newimage[(i+SIZE)/2][j/2];
-                image[i][j+1]=newimage[(i+SIZE)/2][j/2];
-                image[i+1][j]=newimage[(i+SIZE)/2][j/2];
-                image[i+1][j+1]=newimage[(i+SIZE)/2][j/2];
+                newimage[i][j]=image[(i+SIZE)/2][j/2];
+                newimage[i][j+1]=image[(i+SIZE)/2][j/2];
+                newimage[i+1][j]=image[(i+SIZE)/2][j/2];
+                newimage[i+1][j+1]=image[(i+SIZE)/2][j/2];
             }else if (quarter==4){
-                image[i][j]=newimage[(i+SIZE)/2][(j+SIZE)/2];
-                image[i][j+1]=newimage[(i+SIZE)/2][(j+SIZE)/2];
-                image[i+1][j]=newimage[(i+SIZE)/2][(j+SIZE)/2];
-                image[i+1][j+1]=newimage[(i+SIZE)/2][(j+SIZE)/2];
+                newimage[i][j]=image[(i+SIZE)/2][(j+SIZE)/2];
+                newimage[i][j+1]=image[(i+SIZE)/2][(j+SIZE)/2];
+                newimage[i+1][j]=image[(i+SIZE)/2][(j+SIZE)/2];
+                newimage[i+1][j+1]=image[(i+SIZE)/2][(j+SIZE)/2];
+                  for (int i = 0; i < SIZE; i+=2){
+        for (int j =0; j<SIZE;j+=2){
+            image[i][j]=newimage[i][j]
             }
         }
     }
