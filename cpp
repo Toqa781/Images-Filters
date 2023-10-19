@@ -519,10 +519,11 @@ void enlarge(){
                 newimage[i][j+1]=image[(i+SIZE)/2][(j+SIZE)/2];
                 newimage[i+1][j]=image[(i+SIZE)/2][(j+SIZE)/2];
                 newimage[i+1][j+1]=image[(i+SIZE)/2][(j+SIZE)/2];
-                  for (int i = 0; i < SIZE; i+=2){
+                 
+            }
+             for (int i = 0; i < SIZE; i+=2){
         for (int j =0; j<SIZE;j+=2){
             image[i][j]=newimage[i][j]
-            }
         }
     }
 
