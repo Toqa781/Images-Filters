@@ -47,6 +47,8 @@ void crop();
 
 void MirrorImage();
 void enlargeImage();
+void skewHorizontally();
+void skewVertically();
 
 
 int main() {
@@ -64,6 +66,8 @@ int main() {
     cout<<"12- Blur image"<<endl;
     cout << "13-Crop Image" << endl;
     cout<<"b-shuffle image"<<endl;
+    cout<<"e-skew image horizontally"<<endl;
+    cout<<"f- skew image vertically"<<endl;
     int a;
     cin >> a;
     if (a == 1) {
@@ -92,6 +96,10 @@ int main() {
         shuffleImage();
     }else if (a == 13){
         crop();
+    }else if (a==e){
+        skewHorizontally();
+    }else if (a==f){
+        skewVertically();
     }else if (a == 0) {
         return 0;
     }
@@ -619,6 +627,70 @@ void MirrorImage(){
             for(int j=0;j<SIZE;j++){
                 image[i][j]=image[SIZE-i-1][j];
             }
+        }
+    }
+}
+//--------------------------------------------------------
+void skewHorizontally(){
+
+    double rad;
+    cout<< "please enter the angle: "<<endl;
+    cin>> rad;
+    rad= 90 - rad;
+    rad = (rad *22)/(180*7);
+    double x= 256 / (1+(1 / tan(rad)));
+    unsigned char image2[SIZE][SIZE];
+    for (int j=0; j<SIZE; ++j){
+        for(int i=0; i<SIZE; ++i){
+            image2[j] [(int) (i * x) / SIZE] =image[j][i];
+        }
+    }
+    for(int j=0; j<SIZE; j++){
+        for (int i=0;i<SIZE;i++){
+            image[j][i]= image2[j][i];
+            image2[j][i]= 255;
+        }
+    }
+    double sk , vt;
+    sk = SIZE-x;
+    vt = sk / SIZE;
+    for(int j=0 ; j < SIZE  ; j++){
+        for (int i=(int)sk ; i<sk +x ;i++){
+            image2[j][i] = image[j][(int) (i - sk)];
+        }
+        sk -= vt;
+    }
+    for(int j =0; j<SIZE; j++ ){
+        for (int i = 0;i < SIZE; i++ ){
+            image[j][i] = image2[j][i];
+        }
+    }
+}
+//--------------------------------------------------
+void skewVertically(){
+
+    cout<<"Please enter degree to skew Up: ";
+    double rad;
+    cin>>rad;
+    rad = (rad*22)/(7*180);
+    double sk = abs(tan(rad)) * 256;
+    double decreaseMoves = sk/256;
+    double skip = 1 + (sk/255); //because we use skip in the indexes
+    unsigned char skewImage[SIZE+int(sk)][SIZE];
+    for(int i=0 ; i<SIZE+int(sk)  ; i++){
+        for(int j=0 ; j<SIZE; j++){
+           skewImage[i][j] = 255;
+        }
+    }
+    for(int j=0 ; j<SIZE ; j++){
+        for(int i=0 ; i<SIZE; i++){
+            skewImage[i+int(sk)][j] = image[i][j];
+        }
+        sk -= decreaseMoves ;
+    }
+    for(int i=0 ; i<SIZE ; i++){
+        for(int j=0 ; j<SIZE ; j++){
+            image[i][j] = skewImage[int(i*skip)][j];
         }
     }
 }
