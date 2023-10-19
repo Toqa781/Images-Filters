@@ -527,14 +527,6 @@ void enlargeImage () {
         image[i][j + 1] = newimage2[i+SIZE / 2][j+SIZE / 2];
         image[i + 1][j + 1] = newimage2[i+SIZE / 2][j+SIZE / 2];
     }
-
-
-
-
-
-
-
-// do somethi
     }
   }
 }
