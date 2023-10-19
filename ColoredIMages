@@ -19,10 +19,15 @@ void saveImage();
 void doBW();
 void mergeImages();
 void FlipImage();
+void rotateImage();
+void enlrageImage();
+void shuffleImage();
+void ivertImage();
 void doSomethingForImage();
 void Edge();
 vooid shrink();
 void MirrorImage();
+void shuffleImage();
 void blurImage();
 void crop();
 
@@ -37,9 +42,12 @@ int main() {
 //    cout << "5-Rotate Image " << endl;
     cout << "6-Darken and Lighten Image" << endl;
     cout << "7-Detect Image Edges" << endl;
+
+    cout << "8-enlrage image" << endl;
     cout << "9-shrink Image" << endl;
     cout << "10- Mirror 1/2 image" << endl;
     cout<<"12-Blur image"<<endl;
+
     cout << "13-Crop Image" << endl;
     int a;
     cin >> a;
@@ -55,10 +63,15 @@ int main() {
         doSomethingForImage();
     else if(a==7)
         Edge();
+else if(a==8)
+        enlargeImage();
     else if(a==9)
         shrink();
     else if(a==10)
         MirrorImage();
+    else if(a==b)
+        shuffleImage();
+    
     else if(a==12)
         blurImage();
     else if(a==13){
@@ -168,6 +181,22 @@ void FlipImage() {
 
     }
 }
+//_______
+void invert(){
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            for (int k = 0; k < RGB; k++)
+            {
+                image[i][j][k]=255-image[i][j][k];
+            }
+            
+        }
+        
+    }
+    
+}
 //-------------------------------------------------------6-lighten abd darken
 void doSomethingForImage()
 {
@@ -207,6 +236,75 @@ void doSomethingForImage()
         }
     }
 }
+//_______
+void rotate()
+int choice;
+
+    unsigned char rotated_image[SIZE][SIZE][RGB];
+    cout<<"please enter the orentation that you want:";
+    cin>>choice;
+    switch (choice)
+    {
+    case 90:{
+        for (int k = 0; k < RGB; ++k)
+        {
+        for (int i = 0; i < SIZE; ++i)
+            {
+                for (int j = 0; j < SIZE; ++j)
+                {
+                    image[j][i][k]=rotated_image[i][j][k];
+                }
+                
+            }
+        }
+        break;
+    }
+        
+    case 180:{
+        for (int k=0; k<RGB; k++){
+            int row = 255;
+            int column = 255;
+            for (int i = 0; i < SIZE; ++i)
+            {
+            for (int j = 0; j < SIZE; ++j)
+            {
+                rotated_image[row][column][k]=image[i][j][k];
+                column-=1;
+                if (column==0){
+                    row-=1;
+                }
+            }
+        }
+        }
+        break;
+    }
+    case 270:{
+        check+=1;
+        for (int k =0 ; k<RGB; k++){
+            for (int i = 0; i < SIZE; ++i)
+        {
+        for (int j = 0; j < SIZE; ++j)
+            {
+                rotated_image[j][i][k]=image[i][j][k];
+            }
+        }
+        if (check==1){
+            int row = 255;
+            int column = 255;
+        for (int i = 0; i < SIZE; ++i)
+        {
+        for (int j = 0; j < SIZE; ++j)
+            {
+                image270[row][column][k]=rotated_image[i][j][k];
+                column-=1;
+                if (column==0){
+                    row-=1;
+                }
+            }
+        }
+        }
+        }
+        break;
 //-----------------------------------------------------7- detect edges
 void Edge() {
     for(int k=0;k<3;k++) {
@@ -294,7 +392,153 @@ void shrink(){
         }
     }
 }
-//-------------------------------------------10- mirror Image
+//-------------------------------------------
+void shuffle(){
+unsigned char newimage[SIZE][SIZE][3];
+
+    string order;
+    cout<<"enter the order";
+    cin>>order;
+    int length = order.length();
+    for (int k = 0; k < RGB; k++)
+    {
+        int index =0;
+    while (index<4){
+        if (index==0){
+            if (order[index]=='1'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i][j][k]=newimage[i][j][k];
+                }
+            }
+            
+        }else if (order[index]=='2'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i][j][k]=newimage[i][j+SIZE/2][k];
+                }
+            }
+        }else if (order[index]=='3'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i][j][k]=newimage[i+SIZE/2][j][k];
+                }
+                
+            }
+        }else if (order[index]=='4'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i][j][k]=newimage[i+SIZE/2][j+SIZE/2][k];
+                }
+                
+            }
+        }
+    }
+    // --------------------
+        else if (index ==1){
+            if (order[index]=='1'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i][j+SIZE/2][k]=newimage[i][j][k];
+                }
+                
+            }
+            
+        }else if (order[index]=='2'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i][j+SIZE/2][k]=newimage[i][j+SIZE/2][k];
+                }
+                
+            }
+        }else if (order[index]=='3'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i][j+SIZE/2][k]=newimage[i+SIZE/2][j][k];
+                }
+                
+            }
+        }else if (order[index]=='4'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i][j+SIZE/2][k]=newimage[i+SIZE/2][j+SIZE/2][k];
+                }
+                
+            }
+        }
+    }
+    // -------------
+    else if (index==2){
+        if (order[index]=='1'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i+SIZE/2][j][k]=newimage[i][j][k];
+                }
+                
+            }
+            
+        }else if (order[index]=='2'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i+SIZE/2][j][k]=newimage[i][j+SIZE/2][k];
+                }
+                
+            }
+        }else if (order[index]=='3'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i+SIZE/2][j][k]=newimage[i+SIZE/2][j][k];
+                }
+                
+            }
+        }else if (order[index]=='4'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i+SIZE/2][j][k]=newimage[i+SIZE/2][j+SIZE/2][k];
+                }
+                
+            }
+    }
+    }// ---------
+    else if (index ==3){
+        if (order[index]=='1'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i+SIZE/2][j+SIZE/2][k]=newimage[i][j][k];
+                }
+                
+            }
+        }else if (order[index]=='2'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i+SIZE/2][j+SIZE/2][k]=newimage[i][j+SIZE/2][k];
+                }
+                
+            }
+        }else if (order[index]=='3'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i+SIZE/2][j+SIZE/2][k]=newimage[i+SIZE/2][j][k];
+                }
+                
+            }
+        }else if (order[index]=='4'){
+            for (int i = 0; i < SIZE/2; i++){
+                for (int j = 0; j < SIZE/2; j++){
+                    image[i+SIZE/2][j+SIZE/2][k]=newimage[i+SIZE/2][j+SIZE/2][k];
+                }
+                
+            }
+        }
+    }
+    index++;
+    }
+    }
+    
+    
+}
+//__________________
+//____10- mirror Image
 void MirrorImage(){
     char x;
     cout<<"Mirror (l)eft , (r)ight ,(u)pper , (d)own side?"<<endl;
@@ -373,6 +617,42 @@ void blurImage()
     }
 
     memcpy(RGB_image, newImage, SIZE * SIZE * 3 * sizeof(unsigned char));
+//_________________________
+
+}void enlarge(){
+
+unsigned char newimage2[SIZE][SIZE][3];
+    int quarter;
+    cout<<"please enter the quarter u want to enlarge:";
+    cin>>quarter;
+    for (int k =0 ; k<RGB; k++){
+        for (int i = 0; i < SIZE; i+=2){
+        for (int j =0; j<SIZE;j+=2){
+            if (quarter==1){
+                image[i][j][k]=newimage2[i/2][j/2][k];
+                image[i][j+1][k]=newimage2[i/2][j/2][k];
+                image[i+1][j][k]=newimage2[i/2][j/2][k];
+                image[i+1][j+1][k]=newimage2[i/2][j/2][k];
+            }else if (quarter==2){
+                image[i][j][k]=newimage2[i/2][(j+SIZE)/2][k];
+                image[i][j+1][k]=newimage2[i/2][(j+SIZE)/2][k];
+                image[i+1][j][k]=newimage2[i/2][(j+SIZE)/2][k];
+                image[i+1][j+1][k]=newimage2[i/2][(j+SIZE)/2][k];
+            }else if (quarter==3){
+                image[i][j][k]=newimage2[(i+SIZE)/2][j/2][k];
+                image[i][j+1][k]=newimage2[(i+SIZE)/2][j/2][k];
+                image[i+1][j][k]=newimage2[(i+SIZE)/2][j/2][k];
+                image[i+1][j+1][k]=newimage2[(i+SIZE)/2][j/2][k];
+            }else if (quarter==4){
+                image[i][j][k]=newimage2[(i+SIZE)/2][(j+SIZE)/2][k]; 
+                image[i][j+1][k]=newimage2[(i+SIZE)/2][(j+SIZE)/2][k];
+                image[i+1][j][k]=newimage2[(i+SIZE)/2][(j+SIZE)/2][k];
+                image[i+1][j+1][k]=newimage2[(i+SIZE)/2][(j+SIZE)/2][k];
+            }
+        }
+    }
+    }
+    
 }
 //-----------------------------------------------------13-crop Image
 void crop() {
