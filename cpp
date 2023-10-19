@@ -61,6 +61,7 @@ int main() {
     cout << "5-Rotate Image " << endl;
     cout << "6-Darken and Lighten Image" << endl;
     cout << "7-Detect Image Edges" << endl;
+    cout<<"8- Enlarge Image"<<endl;
     cout<< "9-shrink image" << endl;
     cout<<"10- Mirror 1/2 image"<<endl;
     cout<<"12- Blur image"<<endl;
