@@ -1,6 +1,7 @@
 // FCAI – OOP Programming – 2023 - Assignment 1
 // Program Name:Filters
-// Last Modification Date:10/10/2023
+// s7,s8,s21
+// Last Modification Date:20/10/2023
 // Toqa Abdalla Ahmed         id:20220093      email:abdallatoqa56@gmail.com
 //habiba alaa eldin mahfouz   id : 20220104    email:habibaalaa775@gmail.com
 //kermina nashaat shafiek     id:  20220255    email:knashaat544@gmail.com
@@ -41,7 +42,7 @@ void Edge();
 
 void shrink();
 
-void shuffleImage();
+void ShuffleImage();
 
 void blurImage();
 
@@ -101,7 +102,7 @@ int main() {
     } else if (a == 12) {
         crop();
     } else if (a == 13) {
-        shuffleImage();
+        ShuffleImage();
     } else if (a == 14) {
         skewHorizontally();
     } else if (a == 15) {
@@ -284,140 +285,122 @@ void doSomethingForImage() {
 }
 
 //------------------------------------------------------------
-void shuffleImage() {
-    unsigned char newimage[SIZE][SIZE];
-    int index = 0;
-    string order;
-    cout << "enter the order";
-    cin >> order;
-    int length = order.length();
-    while (index < 4) {
-        if (index == 0) {
-            if (order[index] == '1') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i][j] = newimage[i][j];
-                    }
-                }
-            }
-        } else if (order[index] == '2') {
-            for (int i = 0; i < SIZE / 2; i++) {
-                for (int j = 0; j < SIZE / 2; j++) {
-                    image[i][j] = newimage[i][j + SIZE / 2];
-                }
-            }
-        } else if (order[index] == '3') {
-            for (int i = 0; i < SIZE / 2; i++) {
-                for (int j = 0; j < SIZE / 2; j++) {
-                    image[i][j] = newimage[i + SIZE / 2][j];
-                }
-
-            }
-        } else if (order[index] == '4') {
-            for (int i = 0; i < SIZE / 2; i++) {
-                for (int j = 0; j < SIZE / 2; j++) {
-                    image[i][j] = newimage[i + SIZE / 2][j + SIZE / 2];
-                }
-
+void ShuffleImage() {
+    unsigned char image2[SIZE][SIZE];
+    unsigned char image3[SIZE][SIZE];
+    unsigned char origin[SIZE][SIZE];
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            origin[i][j] = image[i][j];
+            image3[i][j] = image[i][j];
+            image2[i][j] = image[i][j];
+        }
+    }
+    cout << "Enter the image new order :";
+    int arr[4];
+    for (int i = 0; i < 4; ++i) {
+        cin >> arr[i];
+    }
+    if (arr[0] == 1) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i][j] = origin[i][j];
             }
         }
-// --------------------
-        else if (index == 1) {
-            if (order[index] == '1') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i][j + SIZE / 2] = newimage[i][j];
-                    }
-
-                }
-
-            } else if (order[index] == '2') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i][j + SIZE / 2] = newimage[i][j + SIZE / 2];
-                    }
-
-                }
-            } else if (order[index] == '3') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i][j + SIZE / 2] = newimage[i + SIZE / 2][j];
-                    }
-
-                }
-            } else if (order[index] == '4') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i][j + SIZE / 2] = newimage[i + SIZE / 2][j + SIZE / 2];
-                    }
-
-                }
+    } else if (arr[0] == 2) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                image[i][j] = origin[i][j + 127];
             }
         }
-// -------------
-        else if (index == 2) {
-            if (order[index] == '1') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i + SIZE / 2][j] = newimage[i][j];
-                    }
-
-                }
-
-            } else if (order[index] == '2') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i + SIZE / 2][j] = newimage[i][j + SIZE / 2];
-                    }
-
-                }
-            } else if (order[index] == '3') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i + SIZE / 2][j] = newimage[i + SIZE / 2][j];
-                    }
-
-                }
-            } else if (order[index] == '4') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i + SIZE / 2][j] = newimage[i + SIZE / 2][j + SIZE / 2];
-                    }
-
-                }
-            }
-        } else if (index == 3) {
-            if (order[index] == '1') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i + SIZE / 2][j + SIZE / 2] = newimage[i][j];
-                    }
-
-                }
-            } else if (order[index] == '2') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i + SIZE / 2][j + SIZE / 2] = newimage[i][j + SIZE / 2];
-                    }
-
-                }
-            } else if (order[index] == '3') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i + SIZE / 2][j + SIZE / 2] = newimage[i + SIZE / 2][j];
-                    }
-
-                }
-            } else if (order[index] == '4') {
-                for (int i = 0; i < SIZE / 2; i++) {
-                    for (int j = 0; j < SIZE / 2; j++) {
-                        image[i + SIZE / 2][j + SIZE / 2] = newimage[i + SIZE / 2][j + SIZE / 2];
-                    }
-
-                }
+    } else if (arr[0] == 3) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i][j] = origin[i + 127][j];
             }
         }
-        index++;
+    } else if (arr[0] == 4) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i][j] = origin[i + 127][j + 127];
+            }
+        }
+    }
+    if (arr[1] == 1) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i][j + 127] = origin[i][j];
+            }
+        }
+    } else if (arr[1] == 2) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i][j + 127] = origin[i][j + 127];
+            }
+        }
+    } else if (arr[1] == 3) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i][j + 127] = origin[i + 127][j];
+            }
+        }
+    } else if (arr[1] == 4) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i][j + 127] = origin[i + 127][j + 127];
+            }
+        }
+    }
+    if (arr[2] == 1) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[127 + i][j] = origin[i][j];
+            }
+        }
+    } else if (arr[2] == 2) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[127 + i][j] = origin[i][127 + j];
+            }
+        }
+
+    } else if (arr[2] == 3) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[127 + i][j] = origin[i + 127][j];
+            }
+        }
+    } else if (arr[2] == 4) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[127 + i][j] = origin[127 + i][127 + j];
+            }
+        }
+    }
+    if (arr[3] == 1) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i + 127][j + 127] = origin[i][j];
+            }
+        }
+    } else if (arr[3] == 2) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i + 127][j + 127] = origin[i][j + 127];
+            }
+        }
+    } else if (arr[3] == 3) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i + 127][j + 127] = origin[i + 127][j];
+            }
+        }
+    } else if (arr[3] == 4) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                image[i + 127][j + 127] = origin[i + 127][j + 127];
+            }
+        }
     }
 }
 
@@ -493,40 +476,86 @@ void shrink() {
 //----------------------------------------------------------------
 // --------------enlarge 8
 void enlarge(){
-    int quarter;
-    cout<<"please enter the quarter u want to enlarge:";
-    cin>>quarter;
-    for (int i = 0; i < SIZE; i+=2){
-        for (int j =0; j<SIZE;j+=2){
-        
-            if (quarter==1){
-                newimage[i][j]=image[i/2][j/2];
-                newimage[i][j+1]=image[i/2][j/2];
-                newimage[i+1][j]=image[i/2][j/2];
-                newimage[i+1][j+1]=image[i/2][j/2];
-            }else if (quarter==2){
-                newimage[i][j]=image[i/2][(j+SIZE)/2];
-                newimage[i][j+1]=image[i/2][(j+SIZE)/2];
-                newimage[i+1][j]=image[i/2][(j+SIZE)/2];
-                newimage[i+1][j+1]=image[i/2][(j+SIZE)/2];
-            }else if (quarter==3){
-                newimage[i][j]=image[(i+SIZE)/2][j/2];
-                newimage[i][j+1]=image[(i+SIZE)/2][j/2];
-                newimage[i+1][j]=image[(i+SIZE)/2][j/2];
-                newimage[i+1][j+1]=image[(i+SIZE)/2][j/2];
-            }else if (quarter==4){
-                newimage[i][j]=image[(i+SIZE)/2][(j+SIZE)/2];
-                newimage[i][j+1]=image[(i+SIZE)/2][(j+SIZE)/2];
-                newimage[i+1][j]=image[(i+SIZE)/2][(j+SIZE)/2];
-                newimage[i+1][j+1]=image[(i+SIZE)/2][(j+SIZE)/2];
-                 
+    int part;
+    cout<<"wich part do you want to enlarge 1 , 2 , 3 or 4:";
+    cin>>part;
+    unsigned char image2[SIZE][SIZE];
+    if(part == 1){
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //setting image2 to be white
+                image2[i][j] = 255;
             }
-             for (int i = 0; i < SIZE; i++){
-        for (int j =0; j<SIZE;j++){
-            image[i][j]=newimage[i][j]
+        }
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE ; ++j) {
+                image2[i][j] = image[i/2][j/2];
+            }
+        }
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //copying new image to the original one
+                image[i][j] = image2[i][j];
+            }
         }
     }
-
+    else if(part == 2){
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //setting image2 to be white
+                image2[i][j] = 255;
+            }
+        }
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                image2[i][j] = image[i/2][(j+256)/2];
+            }
+        }
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //copying new image to the original one
+                image[i][j] = image2[i][j];
+            }
+        }
+    }
+    else if(part == 3){
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //setting image2 to be white
+                image2[i][j] = 255;
+            }
+        }
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                image2[i][j] = image[(i+256)/2][j/2];
+            }
+        }
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //copying new image to the original one
+                image[i][j] = image2[i][j];
+            }
+        }
+    }
+    else if(part == 4){
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //setting image2 to be white
+                image2[i][j] = 255;
+            }
+        }
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                image2[i][j] = image[(i + 256) / 2][(j + 256) / 2];
+            }
+        }
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //copying new image to the original one
+                image[i][j] = image2[i][j];
+            }
+        }
+    }
 }
 
 
